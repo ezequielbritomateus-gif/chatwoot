@@ -145,7 +145,7 @@ class AutomationRulePendingExecution < ApplicationRecord
   # key no longer matches, the episode ended and the pending action is cancelled at fire time.
   def self.episode_key_for(conversation, message)
     if message.nil?
-      # Sub-second precision so a resolve→reopen inside one second still ends the episode.
+      # Sub-second precision so a resolveâ†’reopen inside one second still ends the episode.
       # Integer microseconds (not a float) so an in-memory arm and a DB-reloaded fire agree.
       "status:#{microsecond_stamp(conversation.status_changed_at)}"
     elsif message.incoming?

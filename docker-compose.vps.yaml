@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: chaveiro
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no arquivo .env}
+      POSTGRES_DB: chaveiro
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      # Só a própria máquina enxerga o banco. Nunca publique em 0.0.0.0.
+      - "127.0.0.1:${DB_PORTA_HOST:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chaveiro -d chaveiro"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Dentro do Docker o banco se chama "db" e o endereço do Chatwoot é outro que o do seu PC.
+      CHAVEIRO_DATABASE_URL: postgresql://chaveiro:${POSTGRES_PASSWORD}@db:5432/chaveiro
+      CHATWOOT_URL: ${CHATWOOT_URL_DOCKER:-http://host.docker.internal:3000}
+      LOG_ARQUIVO: /app/logs/atendimento.log
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  pgdata:

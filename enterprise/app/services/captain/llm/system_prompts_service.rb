@@ -9,9 +9,9 @@ class Captain::Llm::SystemPromptsService
 
         **Completeness**: Extract ALL substantive information from the source content. Every detail, example, procedure, warning, code block, identifier, limit, definition, and explanation must be captured across the FAQ set. When combined, the FAQs should reconstruct the substantive source content entirely.
 
-        **Self-contained answers**: Every answer must contain the information that answers its question. The answer must be the substance, not directions to where the substance lives. If a source section provides only a reference, link, or pointer to where the information can be found — without containing that information itself — omit the FAQ for that section. An FAQ whose answer redirects the reader is worse than no FAQ at all.
+        **Self-contained answers**: Every answer must contain the information that answers its question. The answer must be the substance, not directions to where the substance lives. If a source section provides only a reference, link, or pointer to where the information can be found â€” without containing that information itself â€” omit the FAQ for that section. An FAQ whose answer redirects the reader is worse than no FAQ at all.
 
-        **Substance over chrome**: Treat as source content only what is actual product, procedural, conceptual, or factual information. Do not generate FAQs from site chrome — navigation, footer, header, breadcrumbs, cookie banners, search widgets, page metadata, or other interface elements.
+        **Substance over chrome**: Treat as source content only what is actual product, procedural, conceptual, or factual information. Do not generate FAQs from site chrome â€” navigation, footer, header, breadcrumbs, cookie banners, search widgets, page metadata, or other interface elements.
 
         **Accuracy**: Base answers strictly on the provided text. Do not add assumptions, interpretations, or external knowledge not present in the source material.
 
@@ -103,7 +103,7 @@ class Captain::Llm::SystemPromptsService
         [Response Guidelines]
         - Use natural, polite, and conversational language that is clear and easy to follow. Keep sentences short and use simple words.
         - Reply in the language the agent is using, if you're not able to detect the language.
-        - Provide brief and relevant responses—typically one or two sentences unless a more detailed explanation is necessary.
+        - Provide brief and relevant responsesâ€”typically one or two sentences unless a more detailed explanation is necessary.
         - Do not use your own training data or assumptions to answer queries. Base responses strictly on the provided information.
         - If the query is unclear, ask concise clarifying questions instead of making assumptions.
         - Do not try to end the conversation explicitly (e.g., avoid phrases like "Talk soon!" or "Let me know if you need anything else").
@@ -148,60 +148,60 @@ class Captain::Llm::SystemPromptsService
       <<~PROMPT
         You are an expert technical documentation specialist tasked with creating comprehensive FAQs from a SPECIFIC SECTION of a document.
 
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         CRITICAL CONTENT EXTRACTION INSTRUCTIONS
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
         Process the content starting from approximately page #{start_page} and continuing for about #{end_page - start_page + 1} pages worth of content.
 
         IMPORTANT:#{' '}
-        • If you encounter the end of the document before reaching the expected page count, set "has_content" to false
-        • DO NOT include page numbers in questions or answers
-        • DO NOT reference page numbers at all in the output
-        • Focus on the actual content, not pagination
+        â€¢ If you encounter the end of the document before reaching the expected page count, set "has_content" to false
+        â€¢ DO NOT include page numbers in questions or answers
+        â€¢ DO NOT reference page numbers at all in the output
+        â€¢ Focus on the actual content, not pagination
 
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         FAQ GENERATION GUIDELINES
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
         **Language**: Generate the FAQs only in #{language}, use no other language
 
         1. **Comprehensive Extraction**
-           • Extract ALL information that could generate FAQs from this section
-           • Target 5-10 FAQs per page equivalent of rich content
-           • Cover every topic, feature, specification, and detail
-           • If there's no more content in the document, return empty FAQs with has_content: false
+           â€¢ Extract ALL information that could generate FAQs from this section
+           â€¢ Target 5-10 FAQs per page equivalent of rich content
+           â€¢ Cover every topic, feature, specification, and detail
+           â€¢ If there's no more content in the document, return empty FAQs with has_content: false
 
         2. **Question Types to Generate**
-           • What is/are...? (definitions, components, features)
-           • How do I...? (procedures, configurations, operations)
-           • Why should/does...? (rationale, benefits, explanations)
-           • When should...? (timing, conditions, triggers)
-           • What happens if...? (error cases, edge cases)
-           • Can I...? (capabilities, limitations)
-           • Where is...? (locations in system/UI, NOT page numbers)
-           • What are the requirements for...? (prerequisites, dependencies)
+           â€¢ What is/are...? (definitions, components, features)
+           â€¢ How do I...? (procedures, configurations, operations)
+           â€¢ Why should/does...? (rationale, benefits, explanations)
+           â€¢ When should...? (timing, conditions, triggers)
+           â€¢ What happens if...? (error cases, edge cases)
+           â€¢ Can I...? (capabilities, limitations)
+           â€¢ Where is...? (locations in system/UI, NOT page numbers)
+           â€¢ What are the requirements for...? (prerequisites, dependencies)
 
         3. **Content Focus Areas**
-           • Technical specifications and parameters
-           • Step-by-step procedures and workflows
-           • Configuration options and settings
-           • Error messages and troubleshooting
-           • Best practices and recommendations
-           • Integration points and dependencies
-           • Performance considerations
-           • Security aspects
+           â€¢ Technical specifications and parameters
+           â€¢ Step-by-step procedures and workflows
+           â€¢ Configuration options and settings
+           â€¢ Error messages and troubleshooting
+           â€¢ Best practices and recommendations
+           â€¢ Integration points and dependencies
+           â€¢ Performance considerations
+           â€¢ Security aspects
 
         4. **Answer Quality Requirements**
-           • Complete, self-contained answers
-           • Include specific values, limits, defaults from the content
-           • NO page number references whatsoever
-           • 2-5 sentences typical length
-           • Only process content that actually exists in the document
+           â€¢ Complete, self-contained answers
+           â€¢ Include specific values, limits, defaults from the content
+           â€¢ NO page number references whatsoever
+           â€¢ 2-5 sentences typical length
+           â€¢ Only process content that actually exists in the document
 
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         OUTPUT FORMAT
-        ════════════════════════════════════════════════════════
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
         Return valid JSON:
         ```json
@@ -217,12 +217,12 @@ class Captain::Llm::SystemPromptsService
         ```
 
         CRITICAL:#{' '}
-        • Set "has_content" to false if:
+        â€¢ Set "has_content" to false if:
           - The requested section doesn't exist in the document
           - You've reached the end of the document
           - The section contains no meaningful content
-        • Do NOT include "page_range_processed" in the output
-        • Do NOT mention page numbers anywhere in questions or answers
+        â€¢ Do NOT include "page_range_processed" in the output
+        â€¢ Do NOT mention page numbers anywhere in questions or answers
       PROMPT
     end
   end

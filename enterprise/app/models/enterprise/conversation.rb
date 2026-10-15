@@ -61,7 +61,7 @@ module Enterprise::Conversation
   def call_attributes_changed?
     return false if previous_changes['additional_attributes'].blank?
 
-    # Compare before/after values for call keys — checking key presence alone
+    # Compare before/after values for call keys â€” checking key presence alone
     # rebroadcasts on any unrelated additional_attributes write once the keys exist.
     before, after = previous_changes['additional_attributes']
     %w[call_status call_direction].any? { |key| (before || {})[key] != (after || {})[key] }

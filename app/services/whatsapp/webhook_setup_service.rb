@@ -26,8 +26,8 @@ class Whatsapp::WebhookSetupService
 
   # Coexistence numbers come pre-registered, so /register is redundant. @is_coexistence (from the
   # FE's FINISH event) skips the health API call entirely; the is_on_biz_app fallback only runs for
-  # callers that pass no signal at all (nil) — manual setup, voice toggle, direct webhook
-  # re-registration — since an explicit `false` already means the FE positively ruled out coexistence.
+  # callers that pass no signal at all (nil) â€” manual setup, voice toggle, direct webhook
+  # re-registration â€” since an explicit `false` already means the FE positively ruled out coexistence.
   # Otherwise register only when the number is neither connected nor ownership-verified, or when
   # Meta still reports a pending provisioning state.
   def should_register_phone_number?
@@ -89,7 +89,7 @@ class Whatsapp::WebhookSetupService
   end
 
   # `subscribed_fields` is a WABA-wide app subscription, so keep `calls` whenever this inbox or
-  # any sibling on the same WABA has voice on — otherwise a non-calling sibling's setup would
+  # any sibling on the same WABA has voice on â€” otherwise a non-calling sibling's setup would
   # rewrite the shared subscription and drop calls for a calling-enabled sibling.
   def calls_enabled_on_waba?
     return true if @channel.provider_config['calling_enabled']

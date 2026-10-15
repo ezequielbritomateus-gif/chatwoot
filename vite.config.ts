@@ -5,6 +5,9 @@ import { aliases, vueOptions } from './vite.shared';
 import yaml from '@rollup/plugin-yaml';
 
 export default defineConfig({
+  server: {
+    allowedHosts: true,
+  },
   plugins: [ruby(), vue(vueOptions), yaml()],
   css: {
     preprocessorOptions: {

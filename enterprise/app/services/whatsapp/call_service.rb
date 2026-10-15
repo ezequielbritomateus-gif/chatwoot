@@ -31,14 +31,14 @@ class Whatsapp::CallService
       next if call.terminal?
 
       invoke_provider!(:terminate_call)
-      # Compute duration from started_at locally — the webhook arrives after the
+      # Compute duration from started_at locally â€” the webhook arrives after the
       # call is already terminal and the idempotency guard there bails before it
       # can fill these fields, so we have to record them here.
       if call.in_progress?
         duration = call.started_at ? (Time.current - call.started_at).to_i : nil
         finalize_call('completed', duration_seconds: duration, end_reason: 'agent_hangup')
       else
-        # Agent hangs up before contact picks up → no_answer; mirrors the webhook terminate path.
+        # Agent hangs up before contact picks up â†’ no_answer; mirrors the webhook terminate path.
         finalize_call('no_answer', end_reason: 'agent_hangup')
       end
     end
@@ -74,7 +74,7 @@ class Whatsapp::CallService
   end
 
   # Raise on Meta failure (bool false or transport error) so callers bail before
-  # finalizing local state — otherwise we'd mark a still-active call as ended
+  # finalizing local state â€” otherwise we'd mark a still-active call as ended
   # and broadcast voice_call.ended while Meta thinks it's live.
   def invoke_provider!(method, *)
     success = call.inbox.channel.provider_service.public_send(method, call.provider_call_id, *)

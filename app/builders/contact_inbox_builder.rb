@@ -73,9 +73,9 @@ class ContactInboxBuilder
   end
 
   def update_old_contact_inbox
-    # The race condition occurs when there’s a contact inbox with the
+    # The race condition occurs when thereâ€™s a contact inbox with the
     # same source ID but linked to a different contact. This can happen
-    # if the agent updates the contact’s email or phone number, or
+    # if the agent updates the contactâ€™s email or phone number, or
     # if the contact is merged with another.
     #
     # We update the old contact inbox source_id to a random value to

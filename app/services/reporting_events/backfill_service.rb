@@ -129,7 +129,7 @@ class ReportingEvents::BackfillService
       # [name, dimension_id, count, sum_value, sum_value_business_hours]
       row
     else
-      # [name, count, sum_value, sum_value_business_hours] → inject account id
+      # [name, count, sum_value, sum_value_business_hours] â†’ inject account id
       [row[0], @account.id, row[1], row[2], row[3]]
     end
   end

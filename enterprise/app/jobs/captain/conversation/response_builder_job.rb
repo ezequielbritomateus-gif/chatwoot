@@ -55,7 +55,7 @@ class Captain::Conversation::ResponseBuilderJob < ApplicationJob
 
   def process_response
     # The V2 runner rescues its own generation errors and signals them via an error
-    # response instead of raising, so the failure event must be emitted here — the
+    # response instead of raising, so the failure event must be emitted here â€” the
     # top-level handle_error path only sees exceptions raised outside the runner.
     record_v2_response_failure(@response['error_reason']) if v2_generation_errored?
 
@@ -116,7 +116,7 @@ class Captain::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def send_out_of_office_message_if_applicable
-    # Campaign conversations should never receive OOO templates — the campaign itself
+    # Campaign conversations should never receive OOO templates â€” the campaign itself
     # serves as the initial outreach, and OOO would be confusing in that context.
     return if @conversation.campaign.present?
 

@@ -32,7 +32,7 @@ class Captain::Tools::HttpTool < Captain::Tools::BasePublicTool
   end
 
   # Limit response size to prevent memory exhaustion and match LLM token limits
-  # 1MB of text ≈ 250K tokens, which exceeds most LLM context windows
+  # 1MB of text â‰ˆ 250K tokens, which exceeds most LLM context windows
   MAX_RESPONSE_SIZE = 1.megabyte
 
   # Route through SafeFetch so custom tool requests share the app's centralized HTTP

@@ -2,14 +2,14 @@ class Captain::Documents::PerformSyncJob < MutexApplicationJob
   queue_as :low
 
   # A single page fetch + fingerprint compare should complete in seconds.
-  # 10 minutes is generous headroom — if still "syncing" after that, the worker likely died mid-run.
+  # 10 minutes is generous headroom â€” if still "syncing" after that, the worker likely died mid-run.
   # Shared with ScheduleSyncsJob so stale locks are re-enqueued at the same threshold.
   LOCK_TIMEOUT = 10.minutes
 
-  # Safety net for anything we didn't rescue by name — parser bugs, ActiveRecord blips,
+  # Safety net for anything we didn't rescue by name â€” parser bugs, ActiveRecord blips,
   # random infra issues. Three attempts lets a real hiccup recover. The exhaustion block
   # absorbs the final exception so Sidekiq doesn't layer its own retry policy on top, and
-  # is the single place we report to Sentry — handle_unexpected_failure logs but does not
+  # is the single place we report to Sentry â€” handle_unexpected_failure logs but does not
   # capture, so a deterministic bug emits one Sentry event instead of one per attempt.
   # Goes first because retry_on handlers dispatch bottom-to-top.
   retry_on StandardError, wait: 5.seconds, attempts: 3 do |job, error|
@@ -28,7 +28,7 @@ class Captain::Documents::PerformSyncJob < MutexApplicationJob
   # timeouts, TLS errors, 5xx, connection drops. Four attempts with backoff gives the site
   # a chance to recover before we mark the document failed.
   #
-  # The exhaustion block absorbs the exception so it doesn't propagate to Sentry —
+  # The exhaustion block absorbs the exception so it doesn't propagate to Sentry â€”
   # site flakiness isn't an application bug.
   retry_on(
     Captain::Documents::SyncService::TransientSyncError,

@@ -39,7 +39,7 @@ class Api::V1::AccountsController < Api::BaseController
       # need the full response with account_id. API-only deployments have no
       # frontend to handle the email confirmation flow, so they need auth
       # tokens to proceed.
-      # Unauthenticated web signup returns only the email — no session is
+      # Unauthenticated web signup returns only the email â€” no session is
       # created until the user confirms via the email link.
       if current_user || api_only_signup?
         send_auth_headers(@user)
@@ -84,7 +84,7 @@ class Api::V1::AccountsController < Api::BaseController
     Account::BrandingEnrichmentJob.perform_later(@account.id, email)
     Redis::Alfred.set(format(Redis::Alfred::ACCOUNT_ONBOARDING_ENRICHMENT, account_id: @account.id), '1', ex: 30)
   rescue StandardError => e
-    # Enrichment is optional — never let queue/Redis failures abort signup
+    # Enrichment is optional â€” never let queue/Redis failures abort signup
     ChatwootExceptionTracker.new(e).capture_exception
   end
 

@@ -99,7 +99,7 @@ class Rack::Attack
   ### Safelist IPs from Environment Variable ###
   #
   # This block ensures requests from any IP present in RACK_ATTACK_ALLOWED_IPS
-  # will bypass Rack::Attack’s throttling rules.
+  # will bypass Rack::Attackâ€™s throttling rules.
   #
   # Example: RACK_ATTACK_ALLOWED_IPS="127.0.0.1,::1,192.168.0.10"
 

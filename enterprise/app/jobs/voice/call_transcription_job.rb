@@ -2,7 +2,7 @@ class Voice::CallTranscriptionJob < ApplicationJob
   queue_as :low
 
   # A recording OpenAI rejects (corrupt/unsupported audio) or credentials it refuses
-  # will never succeed on retry — drop the job instead of hammering the API.
+  # will never succeed on retry â€” drop the job instead of hammering the API.
   discard_on Faraday::BadRequestError, Faraday::UnauthorizedError do |job, error|
     log_context = {
       call_id: job.arguments.first,

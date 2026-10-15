@@ -28,7 +28,7 @@ class Email::SenderNameBuilder
   end
 
   def mailbox_pattern(email_address)
-    /\s*[<«]\s*(?:reply\+)?#{Regexp.escape(email_address)}\s*[>»]\s*/
+    /\s*[<Â«]\s*(?:reply\+)?#{Regexp.escape(email_address)}\s*[>Â»]\s*/
   end
 
   def sender_locale

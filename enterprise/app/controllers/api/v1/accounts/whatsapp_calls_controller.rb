@@ -37,7 +37,7 @@ class Api::V1::Accounts::WhatsappCallsController < Api::V1::Accounts::BaseContro
     # Link the call to its message in one transaction so the message.created
     # broadcast (an after_create_commit hook) fires only once call.message_id is
     # set. Otherwise the live ringing bubble receives a message with no `call`
-    # payload (no direction/agent) and renders "Calling…" instead of "Handled by …".
+    # payload (no direction/agent) and renders "Callingâ€¦" instead of "Handled by â€¦".
     ActiveRecord::Base.transaction do
       @message = Voice::CallMessageBuilder.new(@call).perform!
       @call.update!(message_id: @message.id)
@@ -77,7 +77,7 @@ class Api::V1::Accounts::WhatsappCallsController < Api::V1::Accounts::BaseContro
     authorize @inbox, :show?
     @contact = Current.account.contacts.find(params[:contact_id])
     @conversation = conversation_builder.existing_conversation
-    # Authorize the thread the call will land in — after the dial is too late to refuse a ringing call.
+    # Authorize the thread the call will land in â€” after the dial is too late to refuse a ringing call.
     authorize(@conversation || conversation_builder.new_conversation, :show?)
   end
 
@@ -178,7 +178,7 @@ class Api::V1::Accounts::WhatsappCallsController < Api::V1::Accounts::BaseContro
   end
 
   def render_permission_request
-    # Raised mid-dial, so a fresh contact has no thread yet — open one for the opt-in template to land in.
+    # Raised mid-dial, so a fresh contact has no thread yet â€” open one for the opt-in template to land in.
     @conversation = open_conversation!
     status = Whatsapp::CallPermissionRequestService.new(conversation: @conversation, recipient: call_recipient).perform
 
@@ -200,7 +200,7 @@ class Api::V1::Accounts::WhatsappCallsController < Api::V1::Accounts::BaseContro
   end
 
   # 409 (not 422) so a losing tab in an accept race dismisses its own ringing UI via the
-  # same path as render_call_ended, instead of waiting on the winner's broadcast — which
+  # same path as render_call_ended, instead of waiting on the winner's broadcast â€” which
   # this tab's own optimistic local state can cause it to mistake for its own accept.
   def render_call_already_accepted
     render json: { error: I18n.t('errors.whatsapp.calls.already_accepted') }, status: :conflict

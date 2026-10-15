@@ -79,11 +79,11 @@ class Whatsapp::TemplateParameterConverterService
 
     case legacy_params
     when Array
-      # Array format: ["John", "Order123"] → {body: {"1": "John", "2": "Order123"}}
+      # Array format: ["John", "Order123"] â†’ {body: {"1": "John", "2": "Order123"}}
       body_params = convert_array_to_body_params(legacy_params)
       enhanced['body'] = body_params unless body_params.empty?
     when Hash
-      # Hash format: {"1": "John", "name": "Jane"} → {body: {"1": "John", "name": "Jane"}}
+      # Hash format: {"1": "John", "name": "Jane"} â†’ {body: {"1": "John", "name": "Jane"}}
       body_params = convert_hash_to_body_params(legacy_params)
       enhanced['body'] = body_params unless body_params.empty?
     when NilClass

@@ -49,7 +49,7 @@ class AutoAssignment::AgentAssignmentService
 
   # Fields the in-flight save is writing commit at their pending value (e.g. bot_handoff!
   # clears the agent bot in the same save that opens), so the locked row only decides
-  # fields this save leaves untouched — the ones a concurrent writer would win.
+  # fields this save leaves untouched â€” the ones a concurrent writer would win.
   def reassignment_still_needed?(locked_conversation)
     bot_source = conversation.will_save_change_to_assignee_agent_bot_id? ? conversation : locked_conversation
     return false if bot_source.assignee_agent_bot_id.present?

@@ -31,7 +31,7 @@ class V2::Reports::BotMetricsBuilder
   end
 
   def bot_resolutions_count
-    # Exclude conversations that also had a handoff in the same range — handoff wins
+    # Exclude conversations that also had a handoff in the same range â€” handoff wins
     account.reporting_events.joins(:conversation).select(:conversation_id)
            .where(account_id: account.id, name: :conversation_bot_resolved, created_at: range)
            .where.not(conversation_id: bot_handoff_conversation_ids_subquery)

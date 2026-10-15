@@ -45,7 +45,7 @@ class Voice::InboundCallBuilder
         .find_by(provider: provider, provider_call_id: call_sid)
   end
 
-  # Resolve the contact/ContactInbox the same way inbound messages do — match across every
+  # Resolve the contact/ContactInbox the same way inbound messages do â€” match across every
   # candidate source_id (phone + BSUID aliases) so a call reuses the existing contact. Shared
   # with messaging via ContactInboxSourceIdResolver, which also rescues the concurrent-webhook
   # create race.
@@ -99,7 +99,7 @@ class Voice::InboundCallBuilder
       provider_call_id: call_sid,
       meta: { 'initiated_at' => Time.zone.now.to_i }.merge(extra_meta.stringify_keys)
     )
-    # `conference_sid` is a Twilio bridging concept; WhatsApp goes browser↔Meta.
+    # `conference_sid` is a Twilio bridging concept; WhatsApp goes browserâ†”Meta.
     call.update!(conference_sid: call.default_conference_sid) if call.twilio?
     call
   end

@@ -38,40 +38,40 @@ class Captain::Llm::HelpCenterCurationService < Captain::BaseTaskService
     <<~PROMPT
       You are curating a help center for a company's customer-support widget.
       You will be given a list of pages discovered on the company's website.
-      Pick pages that would make genuinely useful help-center articles for end users —
+      Pick pages that would make genuinely useful help-center articles for end users â€”
       substantive how-to, FAQ, troubleshooting, policy, getting-started, account/billing
       help, or product guide content.
 
       This is a STARTING SET for the user, not a comprehensive corpus. The user will add
       more articles later. Each article you pick costs downstream time, compute, and
-      money to scrape and rewrite — be deliberate. Only include pages with clear,
+      money to scrape and rewrite â€” be deliberate. Only include pages with clear,
       high-value, substantive help content. When unsure about a page's value, leave it
       out. 8 strong articles beat 20 padded ones, even when the input has 20+ candidates.
 
       Quality over quantity: do not pad with thin, overview, or marketing-adjacent pages
       to hit a target count. If a site has only a few genuinely useful pages, return only
       those few. The schema allows up to 25 articles, but treat that as a hard ceiling,
-      not a target — most sites should land well under it.
+      not a target â€” most sites should land well under it.
 
       Skip marketing/landing pages, blog posts, login, pricing tiers, legal, careers, press, investor pages.
-      Group your picks into reusable categories — use as many as the content naturally breaks into.
-      Use the URL paths and page titles to judge relevance — do not invent URLs.
+      Group your picks into reusable categories â€” use as many as the content naturally breaks into.
+      Use the URL paths and page titles to judge relevance â€” do not invent URLs.
 
       URL-path priority (preference order, not hard rules):
-        - First tier — almost always pick when present. Paths containing /support, /help,
+        - First tier â€” almost always pick when present. Paths containing /support, /help,
           /docs, /documentation, /faq, /faqs, /kb, /knowledge-base, /learn, /guides,
           /getting-started, /how-to, /tutorial, /troubleshoot.
-        - Second tier — pick when the page carries user-relevant information a customer
+        - Second tier â€” pick when the page carries user-relevant information a customer
           would ask support about. Paths like /features, /pricing, /plans, /shipping,
           /returns, /warranty, /security, individual product or category pages. Prefer
           these only after first-tier picks; if a topic exists in both tiers, prefer the
           first-tier URL.
-        - Skip — promotional, navigational, or boilerplate paths: /blog, /news, /press,
+        - Skip â€” promotional, navigational, or boilerplate paths: /blog, /news, /press,
           /careers, /jobs, /about, /team, /investors, /customers, /testimonials,
           /case-studies, /login, /signup, /register, /legal, /terms, /privacy.
 
       For each article, group 1 to 3 URLs that together cover a single topic. PREFER
-      grouping whenever pages overlap or complement each other — merged sources give
+      grouping whenever pages overlap or complement each other â€” merged sources give
       the writer more context and produce a stronger article than two thin stubs.
 
       Strong signals to group multiple URLs (treat any of these as a green light):
@@ -102,7 +102,7 @@ class Captain::Llm::HelpCenterCurationService < Captain::BaseTaskService
       "Company: #{account.name}",
       ("Description: #{brand_info[:description]}" if brand_info[:description].present?),
       ("Industries: #{industries_text}" if industries_text.present?),
-      'Discovered pages (url — title — description):',
+      'Discovered pages (url â€” title â€” description):',
       formatted_links
     ].compact
     parts.join("\n")
@@ -116,7 +116,7 @@ class Captain::Llm::HelpCenterCurationService < Captain::BaseTaskService
   def formatted_links
     Array(links).reject { |link| ignored_url?(link) }.first(MAX_LINKS_IN_PROMPT).map do |link|
       data = link.is_a?(Hash) ? link.deep_symbolize_keys : {}
-      "- #{data[:url]} — #{data[:title].to_s.strip} — #{data[:description].to_s.strip}"
+      "- #{data[:url]} â€” #{data[:title].to_s.strip} â€” #{data[:description].to_s.strip}"
     end.join("\n")
   end
 

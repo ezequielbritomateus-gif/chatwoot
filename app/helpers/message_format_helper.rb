@@ -5,8 +5,8 @@ module MessageFormatHelper
 
     # Use CommonMarker to convert markdown to plain text for notifications
     # This handles all markdown formatting (links, bold, italic, etc.) not just mentions
-    # Converts: [@👍 customer support](mention://team/1/%F0%9F%91%8D%20customer%20support)
-    # To: @👍 customer support
+    # Converts: [@ðŸ‘ customer support](mention://team/1/%F0%9F%91%8D%20customer%20support)
+    # To: @ðŸ‘ customer support
     CommonMarker.render_doc(message_content).to_plaintext.strip
   end
 

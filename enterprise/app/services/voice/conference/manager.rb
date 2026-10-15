@@ -58,7 +58,7 @@ class Voice::Conference::Manager
   # Exactly-once gate for the accepted broadcast, tracked separately from the claim: the
   # claim can already be set before this webhook runs (mark_agent_joined on POST /conference,
   # or OutboundCallBuilder at call creation), and call.status can already be in_progress via
-  # the contact's own "answered" callback — neither is a reliable "already broadcast" signal.
+  # the contact's own "answered" callback â€” neither is a reliable "already broadcast" signal.
   def mark_accepted_broadcast!
     first_time = false
     call.with_lock do
@@ -78,7 +78,7 @@ class Voice::Conference::Manager
   end
 
   # Parses agent user_id from participant_label. Only returns an id when the
-  # label's embedded account id matches the call's account — protects against
+  # label's embedded account id matches the call's account â€” protects against
   # a spoofed/cross-account label attaching a foreign user to the call.
   def extract_user_id
     match = participant_label.to_s.match(AGENT_LABEL_PATTERN)

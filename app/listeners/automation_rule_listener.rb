@@ -67,7 +67,7 @@ class AutomationRuleListener < BaseListener
   end
 
   # Delayed rules record a pending execution instead of acting; the sweep re-checks and
-  # runs them at due time. Flag off means no arming and no immediate fallback — a delayed
+  # runs them at due time. Flag off means no arming and no immediate fallback â€” a delayed
   # message silently becoming instant is worse than skipping.
   def execute_rule(rule, account, conversation, message: nil)
     if rule.execution_delay.present?

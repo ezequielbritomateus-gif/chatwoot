@@ -26,15 +26,15 @@ class Internal::AccountAnalysis::DiscordNotifierService
       ---
       An account has been flagged in our security system with the following details:
 
-      🆔 **Account Details:**
+      ðŸ†” **Account Details:**
       Account ID: #{account.id}
       User Email: #{user&.email || 'N/A'}
       Threat Level: #{analysis['last_threat_scan_level']}
 
-      🔎 **System Recommendation:** #{analysis['last_threat_scan_recommendation']}
-      #{analysis['illegal_activities_detected'] ? '⚠️ Potential illegal activities detected' : 'No illegal activities detected'}
+      ðŸ”Ž **System Recommendation:** #{analysis['last_threat_scan_recommendation']}
+      #{analysis['illegal_activities_detected'] ? 'âš ï¸ Potential illegal activities detected' : 'No illegal activities detected'}
 
-      📝 **Findings:**
+      ðŸ“ **Findings:**
       #{analysis['last_threat_scan_summary']}
     MESSAGE
 

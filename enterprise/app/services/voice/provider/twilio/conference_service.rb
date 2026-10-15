@@ -49,7 +49,7 @@ class Voice::Provider::Twilio::ConferenceService
     raise CustomExceptions::CallAlreadyAccepted.new(agent_name: agent&.available_name || agent&.name)
   end
 
-  # Existing assignments win — manual reassignment and pre-call assignment
+  # Existing assignments win â€” manual reassignment and pre-call assignment
   # (e.g., lock_to_single_conversation) shouldn't be stomped on pickup.
   def assign_conversation!(user)
     conversation = call.conversation

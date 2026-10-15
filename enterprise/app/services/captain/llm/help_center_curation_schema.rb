@@ -9,7 +9,7 @@ class Captain::Llm::HelpCenterCurationSchema < RubyLLM::Schema
   TITLE_DESCRIPTION = 'Concise article title (max 80 chars), rewritten if the source title is too long or marketing-y.'.freeze
   CATEGORY_DESCRIPTION = 'One sentence describing what kind of articles belong in this category.'.freeze
   URLS_DESCRIPTION = '1 to 3 source URLs from the input list. Prefer grouping when pages cover related ' \
-                     'aspects of the same topic — overview + deep-dive, FAQ + how-to, policy + FAQ, ' \
+                     'aspects of the same topic â€” overview + deep-dive, FAQ + how-to, policy + FAQ, ' \
                      'parent topic + its troubleshooting page. Merged sources give the writer more ' \
                      'context and produce stronger articles than several thin stubs.'.freeze
 

@@ -6,7 +6,7 @@ class Whatsapp::PhoneNormalizers::ArgentinaPhoneNormalizer < Whatsapp::PhoneNorm
   def normalize(waid)
     return waid unless handles_country?(waid)
 
-    # Remove "9" after country code if present (549 → 54)
+    # Remove "9" after country code if present (549 â†’ 54)
     waid.sub(/^549/, '54')
   end
 

@@ -42,7 +42,7 @@ class Api::V1::Accounts::Contacts::CallsController < Api::V1::Accounts::BaseCont
 
   # Reuse the open conversation when the caller is already inside it; ignore
   # the hint if it doesn't belong to the picked voice inbox or dialed contact.
-  # Only reuse open conversations — Message#reopen_conversation skips outgoing
+  # Only reuse open conversations â€” Message#reopen_conversation skips outgoing
   # messages, so dropping a voice_call bubble into a resolved/snoozed/pending
   # thread leaves it stuck in that state.
   def existing_conversation

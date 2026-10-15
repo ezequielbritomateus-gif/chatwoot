@@ -9,7 +9,7 @@
 #  phone_number                   :string           not null
 #  phone_number_health            :jsonb            not null
 #  phone_number_health_checked_at :datetime
-#  phone_number_health_error      :string
+#  phone_number_health_error      :string(500)
 #  provider                       :string           default("default")
 #  provider_config                :jsonb
 #  created_at                     :datetime         not null
@@ -118,7 +118,7 @@ class Channel::Whatsapp < ApplicationRecord
   end
 
   # Whether the pending (unsaved) provider_config change drops the embedded_signup
-  # source marker, i.e. this save is an embedded signup → manual setup transfer.
+  # source marker, i.e. this save is an embedded signup â†’ manual setup transfer.
   def embedded_to_manual_transfer_pending?
     before, after = provider_config_change
     before&.dig('source') == 'embedded_signup' && after['source'] != 'embedded_signup'
@@ -159,7 +159,7 @@ class Channel::Whatsapp < ApplicationRecord
     errors.add(:provider_config, 'Invalid Credentials') unless provider_service.validate_provider_config?
   end
 
-  # Logs only the embedded signup → manual migration (the save drops the
+  # Logs only the embedded signup â†’ manual migration (the save drops the
   # embedded_signup source marker), so credential rotations on inboxes that are
   # already manual stay silent.
   def log_credentials_transfer

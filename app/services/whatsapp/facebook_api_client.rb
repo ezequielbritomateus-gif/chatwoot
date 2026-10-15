@@ -142,7 +142,7 @@ class Whatsapp::FacebookApiClient
   end
 
   def subscribe_phone_number_webhook(waba_id, phone_number_id, callback_url, verify_token, subscribed_fields: nil)
-    # Subscribe app to WABA first — Meta requires it before any callback override (issue #13097).
+    # Subscribe app to WABA first â€” Meta requires it before any callback override (issue #13097).
     # subscribed_fields (incl. `calls` when voice is enabled) is declared here; the phone-level POST has no such field.
     subscribe_app_to_waba(waba_id, subscribed_fields: subscribed_fields || WEBHOOK_DEFAULT_FIELDS)
 

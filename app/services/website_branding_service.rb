@@ -58,7 +58,7 @@ class WebsiteBrandingService
     return og_site_name.strip if og_site_name.present?
 
     title = doc.at_xpath('//title')&.text
-    title&.strip&.split(/\s*[|\-–—·:]+\s*/)&.first
+    title&.strip&.split(/\s*[|\-â€“â€”Â·:]+\s*/)&.first
   end
 
   def extract_colors(doc)

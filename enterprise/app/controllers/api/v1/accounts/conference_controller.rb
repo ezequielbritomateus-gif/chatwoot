@@ -17,7 +17,7 @@ class Api::V1::Accounts::ConferenceController < Api::V1::Accounts::BaseControlle
     conference_sid = conference_service.ensure_conference_sid
     conference_service.mark_agent_joined(user: current_user)
     # voice_call.accepted broadcasts from Voice::Conference::Manager#join_agent! once
-    # Twilio confirms the leg joined, not here — joinClientCall can still fail after this.
+    # Twilio confirms the leg joined, not here â€” joinClientCall can still fail after this.
 
     render json: {
       status: 'success',
@@ -37,7 +37,7 @@ class Api::V1::Accounts::ConferenceController < Api::V1::Accounts::BaseControlle
       conference_service.end_conference
       finalize_call!(call)
     end
-    # Account-wide, so every other tab/agent stops showing this call as ringing/active —
+    # Account-wide, so every other tab/agent stops showing this call as ringing/active â€”
     # matches the equivalent WhatsApp broadcast (Whatsapp::CallService#broadcast).
     call.broadcast_voice_call_event(:ended, status: call.display_status)
     render json: { status: 'success', id: call.conversation.display_id }
@@ -72,10 +72,10 @@ class Api::V1::Accounts::ConferenceController < Api::V1::Accounts::BaseControlle
     render json: { error: error.message }, status: :conflict
   end
 
-  # Always persist a terminal status under destroy's row lock before the :ended broadcast fires —
+  # Always persist a terminal status under destroy's row lock before the :ended broadcast fires â€”
   # otherwise a delayed join webhook can still pass Manager#join_agent!'s terminal? guard
   # and broadcast voice_call.accepted after voice_call.ended. Mirrors Whatsapp::CallService#terminate.
-  # Routed through CallStatus::Manager (not a bare update!) so ended_at/duration_seconds are set here —
+  # Routed through CallStatus::Manager (not a bare update!) so ended_at/duration_seconds are set here â€”
   # the async Twilio webhook that would normally set them now finds the call already terminal and bails.
   def finalize_call!(call)
     return if call.terminal?

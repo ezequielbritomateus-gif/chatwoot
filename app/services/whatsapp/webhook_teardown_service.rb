@@ -12,7 +12,7 @@ class Whatsapp::WebhookTeardownService
     deregister_phone_number(api_client)
     unsubscribe_app_if_last_inbox(api_client)
   rescue StandardError => e
-    # before_destroy must never block a channel delete — log and move on.
+    # before_destroy must never block a channel delete â€” log and move on.
     Rails.logger.error "[WHATSAPP] Webhook teardown failed for channel #{@channel&.id}: #{e.message}"
   end
 
@@ -38,7 +38,7 @@ class Whatsapp::WebhookTeardownService
     Rails.logger.error "[WHATSAPP] Phone-level webhook clear failed for channel #{@channel.id}: #{e.message}"
   end
 
-  # Embedded signup only — deregistering a manually connected number disables it on the customer's own app.
+  # Embedded signup only â€” deregistering a manually connected number disables it on the customer's own app.
   # Releases the number from our app so the customer can re-add it elsewhere.
   def deregister_phone_number(api_client)
     return unless provider_config['source'] == 'embedded_signup'
@@ -52,7 +52,7 @@ class Whatsapp::WebhookTeardownService
     Rails.logger.error "[WHATSAPP] Phone deregistration failed for channel #{@channel.id}: #{e.message}"
   end
 
-  # Embedded signup only — a manual token's subscribed app is the customer's, not ours to unsubscribe.
+  # Embedded signup only â€” a manual token's subscribed app is the customer's, not ours to unsubscribe.
   # The subscription is shared across the WABA, so only unsubscribe when this is the last inbox.
   def unsubscribe_app_if_last_inbox(api_client)
     return unless provider_config['source'] == 'embedded_signup'

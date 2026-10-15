@@ -42,7 +42,7 @@ class Captain::Documents::SinglePageFetcher
     )
   end
 
-  # Firecrawl returns API 200 even when the scraped page itself failed —
+  # Firecrawl returns API 200 even when the scraped page itself failed â€”
   # the target page's real status lives in data.metadata.statusCode.
   def firecrawl_target_error_code(data)
     status = data&.dig('metadata', 'statusCode')

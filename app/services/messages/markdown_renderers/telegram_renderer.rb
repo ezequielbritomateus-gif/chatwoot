@@ -52,7 +52,7 @@ class Messages::MarkdownRenderers::TelegramRenderer < Messages::MarkdownRenderer
       out("#{@list_item_number}. ", :children)
       @list_item_number += 1
     else
-      out('• ', :children)
+      out('â€¢ ', :children)
     end
     cr
   end

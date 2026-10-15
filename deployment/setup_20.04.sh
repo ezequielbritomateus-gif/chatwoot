@@ -7,7 +7,7 @@
 
 set -eu -o errexit -o pipefail -o noclobber -o nounset
 
-# -allow a command to fail with !’s side effect on errexit
+# -allow a command to fail with !â€™s side effect on errexit
 # -use return value from ${PIPESTATUS[0]}, because ! hosed $?
 ! getopt --test > /dev/null
 if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
@@ -31,7 +31,7 @@ fi
 
 # -regarding ! and PIPESTATUS see above
 # -temporarily store output to be able to check for errors
-# -activate quoting/enhanced mode (e.g. by writing out “--options”)
+# -activate quoting/enhanced mode (e.g. by writing out â€œ--optionsâ€)
 # -pass arguments only via   -- "$@"   to separate them correctly
 ! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
 if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
@@ -39,7 +39,7 @@ if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
     #  then getopt has complained about wrong arguments to stdout
     exit 2
 fi
-# read getopt’s output this way to handle the quoting right:
+# read getoptâ€™s output this way to handle the quoting right:
 eval set -- "$PARSED"
 
 c=n d=n h=n i=n I=n l=n r=n s=n u=n U=n w=n v=n W=n K=n C=n BRANCH=master SERVICE=web DEPLOYMENT_TYPE=full CONVERT_TO=""
@@ -628,44 +628,44 @@ EOF
   echo -en "\n"
   read -rp 'Would you like to install Postgres and Redis? (Answer no if you plan to use external services)(yes or no): ' install_pg_redis
 
-  echo -en "\n➥ 1/9 Installing dependencies. This takes a while.\n"
+  echo -en "\nâž¥ 1/9 Installing dependencies. This takes a while.\n"
   install_dependencies &>> "${LOG_FILE}"
 
   if [ "$install_pg_redis" != "no" ]; then
-    echo "➥ 2/9 Installing databases."
+    echo "âž¥ 2/9 Installing databases."
     install_databases &>> "${LOG_FILE}"
   else
-    echo "➥ 2/9 Skipping Postgres and Redis installation."
+    echo "âž¥ 2/9 Skipping Postgres and Redis installation."
   fi
 
   if [ "$configure_webserver" == "yes" ]; then
-    echo "➥ 3/9 Installing webserver."
+    echo "âž¥ 3/9 Installing webserver."
     install_webserver &>> "${LOG_FILE}"
   else
-    echo "➥ 3/9 Skipping webserver installation."
+    echo "âž¥ 3/9 Skipping webserver installation."
   fi
 
-  echo "➥ 4/9 Setting up Ruby"
+  echo "âž¥ 4/9 Setting up Ruby"
   configure_rvm &>> "${LOG_FILE}"
 
   if [ "$install_pg_redis" != "no" ]; then
-    echo "➥ 5/9 Setting up the database."
+    echo "âž¥ 5/9 Setting up the database."
     configure_db &>> "${LOG_FILE}"
   else
-    echo "➥ 5/9 Skipping database setup."
+    echo "âž¥ 5/9 Skipping database setup."
   fi
 
-  echo "➥ 6/9 Installing Chatwoot. This takes a long while."
+  echo "âž¥ 6/9 Installing Chatwoot. This takes a long while."
   setup_chatwoot &>> "${LOG_FILE}"
 
   if [ "$install_pg_redis" != "no" ]; then
-    echo "➥ 7/9 Running database migrations."
+    echo "âž¥ 7/9 Running database migrations."
     run_db_migrations &>> "${LOG_FILE}"
   else
-    echo "➥ 7/9 Skipping database migrations."
+    echo "âž¥ 7/9 Skipping database migrations."
   fi
 
-  echo "➥ 8/9 Setting up systemd services."
+  echo "âž¥ 8/9 Setting up systemd services."
   configure_systemd_services &>> "${LOG_FILE}"
 
   public_ip=$(curl http://checkip.amazonaws.com -s)
@@ -673,7 +673,7 @@ EOF
   if [ "$configure_webserver" != "yes" ]
   then
     cat << EOF
-➥ 9/9 Skipping SSL/TLS setup.
+âž¥ 9/9 Skipping SSL/TLS setup.
 
 ***************************************************************************
 Woot! Woot!! Chatwoot server installation is complete.
@@ -688,7 +688,7 @@ Join the community at https://chatwoot.com/community?utm_source=cwctl
 EOF
   cwctl_message
   else
-    echo "➥ 9/9 Setting up SSL/TLS."
+    echo "âž¥ 9/9 Setting up SSL/TLS."
     setup_ssl &>> "${LOG_FILE}"
     ssl_success_message
     cwctl_message
@@ -966,15 +966,15 @@ function upgrade() {
   if [ "$BRANCH" != "master" ]; then
     cat << EOF
 
-⚠️  WARNING: Branch-specific upgrades are EXPERIMENTAL
-⚠️  Switching between different versions/branches may cause:
+âš ï¸  WARNING: Branch-specific upgrades are EXPERIMENTAL
+âš ï¸  Switching between different versions/branches may cause:
    - Database migration conflicts
    - Asset compilation errors
    - Configuration incompatibilities
    - Data corruption or loss
 
-⚠️  This is NOT recommended for production environments.
-⚠️  Always backup your database before proceeding.
+âš ï¸  This is NOT recommended for production environments.
+âš ï¸  Always backup your database before proceeding.
 
 EOF
     read -p "Do you understand the risks and want to continue? [y/N]: " user_input

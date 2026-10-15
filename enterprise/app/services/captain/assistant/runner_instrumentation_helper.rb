@@ -49,7 +49,7 @@ module Captain::Assistant::RunnerInstrumentationHelper
   def add_usage_metadata_callback(runner)
     handoff_tool_name = Captain::Tools::HandoffTool.new(@assistant).name
 
-    # Tool tracking always runs — process_response in the job consumes the resulting
+    # Tool tracking always runs â€” process_response in the job consumes the resulting
     # handoff_tool_called flag regardless of whether OTEL is enabled.
     runner.on_tool_complete do |tool_name, _tool_result, context_wrapper|
       track_handoff_usage(tool_name, handoff_tool_name, context_wrapper)

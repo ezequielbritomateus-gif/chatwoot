@@ -31,7 +31,7 @@ class Whatsapp::PhoneInfoService
     build_phone_info(phone_data)
   end
 
-  # A provided identifier is authoritative — no falling back to another number, which
+  # A provided identifier is authoritative â€” no falling back to another number, which
   # could silently onboard/reauthorize the wrong one on a multi-number WABA.
   def find_phone_data(phone_numbers)
     return find_by_id(phone_numbers) if @phone_number_id.present?

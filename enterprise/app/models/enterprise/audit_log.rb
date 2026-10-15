@@ -7,7 +7,10 @@
 #  associated_type :string
 #  auditable_type  :string
 #  audited_changes :jsonb
+#  city            :string
 #  comment         :string
+#  country         :string
+#  country_code    :string
 #  remote_address  :string
 #  request_uuid    :string
 #  user_type       :string
@@ -20,11 +23,12 @@
 #
 # Indexes
 #
-#  associated_index              (associated_type,associated_id)
-#  auditable_index               (auditable_type,auditable_id,version)
-#  index_audits_on_created_at    (created_at)
-#  index_audits_on_request_uuid  (request_uuid)
-#  user_index                    (user_id,user_type)
+#  associated_index                           (associated_type,associated_id)
+#  auditable_index                            (auditable_type,auditable_id,version)
+#  index_audits_on_associated_and_created_at  (associated_type,associated_id,created_at)
+#  index_audits_on_created_at                 (created_at)
+#  index_audits_on_request_uuid               (request_uuid)
+#  user_index                                 (user_id,user_type)
 #
 class Enterprise::AuditLog < Audited::Audit
   after_save :log_additional_information

@@ -194,7 +194,7 @@ class Captain::Llm::PaginatedFaqGeneratorService < Llm::LegacyBaseOpenAiService
       final_faqs << faq unless similar_exists
     end
 
-    Rails.logger.info "Deduplication: #{faqs.size} → #{final_faqs.size} FAQs"
+    Rails.logger.info "Deduplication: #{faqs.size} â†’ #{final_faqs.size} FAQs"
     final_faqs
   end
 

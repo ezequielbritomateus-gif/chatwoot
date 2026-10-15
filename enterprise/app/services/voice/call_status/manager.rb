@@ -7,7 +7,7 @@ class Voice::CallStatus::Manager
     # Guards run on the locked row, not the caller's copy, so a callback racing an agent hangup can't overwrite its outcome.
     call.with_lock do
       next if call.status == status
-      # Don't overwrite a terminal status — Twilio's late `completed` events would
+      # Don't overwrite a terminal status â€” Twilio's late `completed` events would
       # otherwise clobber an agent-rejection reason.
       next if Call::TERMINAL_STATUSES.include?(call.status)
 

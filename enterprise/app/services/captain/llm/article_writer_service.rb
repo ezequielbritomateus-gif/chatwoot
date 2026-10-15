@@ -42,12 +42,12 @@ class Captain::Llm::ArticleWriterService < Captain::BaseTaskService
 
       Preserve the substance: keep instructions, steps, code samples, configuration, troubleshooting, and FAQs intact.
       Strip marketing copy, navigation breadcrumbs, "share this page" footers, repeated CTAs, and links to unrelated pages.
-      Output well-formatted Markdown — use headings, lists, and code fences where appropriate.
+      Output well-formatted Markdown â€” use headings, lists, and code fences where appropriate.
       The body must stay under 18000 characters. If the combined sources are longer, trim repetition and tangents
       before cutting steps or critical detail. Never invent content the sources do not support.
 
       Write the title, description, and body in #{locale_name}.
-      If a source page is in another language, translate as you rewrite — do not copy source-language text into the output.
+      If a source page is in another language, translate as you rewrite â€” do not copy source-language text into the output.
       Code samples, command-line examples, API field names, and proper nouns stay in their original form.
     PROMPT
   end

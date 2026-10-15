@@ -91,8 +91,8 @@ class OauthCallbackController < ApplicationController
   end
 
   # The sgid purpose carries the onboarding return hint (see
-  # OauthAuthorizationController#state). Try the onboarding purpose first — a match
-  # both resolves the account and records the return target — then fall back to the
+  # OauthAuthorizationController#state). Try the onboarding purpose first â€” a match
+  # both resolves the account and records the return target â€” then fall back to the
   # default purpose used by every other caller.
   def account_from_signed_id
     raise ActionController::BadRequest, 'Missing state variable' if params[:state].blank?

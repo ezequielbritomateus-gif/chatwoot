@@ -21,7 +21,7 @@ class ReportingEvents::RollupService
 
   # NOTE: This is intentionally not gated by the reporting_events_rollup feature flag.
   # Rollup data is collected for all accounts with a valid reporting timezone (soft toggle).
-  # The feature flag only controls the read path — whether reports query rollups or raw events.
+  # The feature flag only controls the read path â€” whether reports query rollups or raw events.
   def rollup_enabled?
     @account.reporting_timezone.present? && ActiveSupport::TimeZone[@account.reporting_timezone].present?
   end

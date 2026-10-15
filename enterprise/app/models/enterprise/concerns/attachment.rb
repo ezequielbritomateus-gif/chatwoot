@@ -7,7 +7,7 @@ module Enterprise::Concerns::Attachment
     after_create_commit :enqueue_audio_transcription
     # Broadcast the message update so the FE bubble picks up the new audio
     # attachment immediately. Without this, the FE has to wait until Whisper
-    # finishes (or fall back to a page refresh) — and if Whisper returns blank,
+    # finishes (or fall back to a page refresh) â€” and if Whisper returns blank,
     # the bubble never gets the audio at all.
     after_create_commit :broadcast_message_update_for_audio
   end
@@ -28,7 +28,7 @@ module Enterprise::Concerns::Attachment
     return unless message
     # Without an attached file, the message serializer's audio_metadata path
     # dereferences `file.metadata[:width]` on nil and raises. The pre-attach
-    # broadcast wouldn't carry useful audio info anyway — skip until upload completes.
+    # broadcast wouldn't carry useful audio info anyway â€” skip until upload completes.
     return unless file.attached?
 
     message.reload.send_update_event

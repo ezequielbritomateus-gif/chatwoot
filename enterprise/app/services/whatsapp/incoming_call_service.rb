@@ -22,7 +22,7 @@ class Whatsapp::IncomingCallService
   end
 
   # Meta's `connect` event for outbound calls fires when the WebRTC tunnel is
-  # up — empirically ~20s before the contact actually answers. The real pickup
+  # up â€” empirically ~20s before the contact actually answers. The real pickup
   # is reported as a separate webhook with status=ACCEPTED, and is what
   # `terminate.start_time` aligns to. Treat ACCEPTED as the pickup transition.
   def handle_status(payload)
@@ -57,7 +57,7 @@ class Whatsapp::IncomingCallService
     if call.nil?
       # Only an `offer` payload is a real inbound caller. An `answer` with no
       # local row means Meta beat our outbound `Call.create!` (tiny window
-      # between initiate API response and DB insert) — do not mint an inbound
+      # between initiate API response and DB insert) â€” do not mint an inbound
       # row for it; the next status webhook (or a retry) will find it.
       return create_inbound_call(payload) if inbound_offer?(payload)
 
@@ -92,7 +92,7 @@ class Whatsapp::IncomingCallService
 
   # If a terminate already arrived (caller hung up before pickup), finalize it in the
   # SAME transaction as the build so the message's after_create_commit fires (at outer
-  # commit) already terminal, never `ringing` — agents aren't rung for a dead call.
+  # commit) already terminal, never `ringing` â€” agents aren't rung for a dead call.
   def build_inbound_call(payload, sdp_offer)
     ActiveRecord::Base.transaction do
       identity = Whatsapp::InboundCallIdentityBuilder.new(inbox: inbox, params: params).perform(payload)

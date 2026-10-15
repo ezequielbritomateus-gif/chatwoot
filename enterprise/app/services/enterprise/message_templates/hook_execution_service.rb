@@ -5,7 +5,7 @@ module Enterprise::MessageTemplates::HookExecutionService
 
     # Eligibility is demand-level: every inbound customer message in a
     # Captain-connected inbox counts, including conversations a human grabbed
-    # first or that arrive while the account is over its usage limit —
+    # first or that arrive while the account is over its usage limit â€”
     # otherwise the coverage denominator only ever contains conversations
     # Captain was already about to answer.
     track_captain_eligibility
@@ -66,7 +66,7 @@ module Enterprise::MessageTemplates::HookExecutionService
   end
 
   def send_out_of_office_message_after_handoff
-    # Campaign conversations should never receive OOO templates — the campaign itself
+    # Campaign conversations should never receive OOO templates â€” the campaign itself
     # serves as the initial outreach, and OOO would be confusing in that context.
     return if conversation.campaign.present?
 

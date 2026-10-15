@@ -5,7 +5,7 @@ class Llm::SpeechToTextService < Llm::LegacyBaseOpenAiService
   include Integrations::LlmInstrumentation
 
   # OpenAI's transcription endpoint hard limit is 25 MB *decimal* (25_000_000), not
-  # binary (25.megabytes = 26_214_400) — using the binary form leaks the 25.0–26.2 MB
+  # binary (25.megabytes = 26_214_400) â€” using the binary form leaks the 25.0â€“26.2 MB
   # range to the API as 413s. Long audio (~70+ min Opus) keeps the source audio but
   # skips transcription.
   BYTE_LIMIT = 25_000_000
@@ -38,7 +38,7 @@ class Llm::SpeechToTextService < Llm::LegacyBaseOpenAiService
     File.open(temp_file_path, 'rb') do |file|
       transcribed_text = instrument_audio_transcription(instrumentation_params(temp_file_path)) do
         # temperature: 0.0 minimises hallucinations on silence / near-silent
-        # audio; non-zero values trigger spiraling repeats — well-documented
+        # audio; non-zero values trigger spiraling repeats â€” well-documented
         # behaviour across OpenAI transcription models.
         response = @client.audio.transcribe(
           parameters: {
